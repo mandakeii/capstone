@@ -337,6 +337,11 @@ confusionMatrix(model)
 #Accuracy of 95.65%.
 
 
+#Save NB model to RDS file for deployment purposes  
+saveRDS(model, "NB.rds")
+
+
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Model 2: Logistic Regression ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 install.packages("jtools")
@@ -426,3 +431,5 @@ varImp(tree_with_params)
 tree_with_params$variable.importance
 #BESAA10, BESAA3, BESAA15, BESAA22
 
+#Save Model to RDS file for deployment purposes  
+saveRDS(tree_with_params, "DT.rds")
