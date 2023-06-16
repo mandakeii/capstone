@@ -43,7 +43,7 @@ body_image <- body_image %>%
   mutate_if(~n_distinct(.) >= 5, as.numeric) #All numerical variables only have 5 unique values 
 str(body_image) # Double check on the data type
 
-# Reverse the Likert scale for negative items from the BESAA variables
+# Reverse the Likert scale for negative items from the BESAA variables.
 body_image$BESAA4 <- 4 - body_image$BESAA4
 body_image$BESAA7 <- 4 - body_image$BESAA7
 body_image$BESAA9 <- 4 - body_image$BESAA9
@@ -62,7 +62,7 @@ body_image$BESAA21 <- 4 - body_image$BESAA21
 
 # Create new variables to calculate the sum of BESAA score
 body_image <- body_image %>% mutate(Sum_BE = BESAA1 + BESAA2 + BESAA3 + BESAA4 + BESAA5 + BESAA6 + BESAA7 + BESAA8 + BESAA9 + BESAA10 + BESAA11 + BESAA12 + BESAA13 + BESAA14 + BESAA15 + BESAA16 + BESAA17 + BESAA18 + BESAA19 + BESAA20 + BESAA21 + BESAA22 + BESAA23)
-body_image$BID <- ifelse(body_image$Sum_BE > 46, "No", "Yes") 
+body_image$BID <- ifelse(body_image$Sum_BE > 46, "No", "Yes") #it is 46 as it is the median of the BESAA total score.
 head(body_image)
 body_image$BID <- as.factor(body_image$BID) #Change data type of BID to factor
 
@@ -336,7 +336,6 @@ confusionMatrix(model)
 
 #Accuracy of 95.65%.
 
-
 #Save NB model to RDS file for deployment purposes  
 saveRDS(model, "NB.rds")
 
@@ -353,7 +352,6 @@ logit_classifier = glm(cluster ~., train, family = binomial, control = list(maxi
 summary(logit_classifier)
 
 coef(logit_classifier)
-confint(logit_classifier)
 anova(logit_classifier, test="Chisq")
 # Age, TimeSpent, BESAA1, BESAA3, BESAA4, BESAA6-8 are significant variables.
 
@@ -377,7 +375,7 @@ log_table <- as.factor(log_table)
 str(log_table)
 confusionMatrix(test$cluster,log_predict)
 
-#shows an accuracy of 75.60976% for Logistic Regression.
+#shows an accuracy of 75.61% for Logistic Regression.
 
 
 
